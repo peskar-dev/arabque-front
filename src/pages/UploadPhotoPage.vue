@@ -1,37 +1,66 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 import { sendImage, showProgress, getStatus } from '~/composables/upload-photo'
-import { GetStatusResponse, ImageGenerationResponse } from '~/composables/upload-photo/index.types.ts'
+import { useRoute, useRouter } from 'vue-router'
 
 const showModal = ref(false)
 
-const inputEl = ref<HTMLInputElement | null>(null)
+const inputEl = ref<HTMLInputElement>()
 
-const showError = ref(false)
+const openModal = (): void => {
+  showModal.value = true
+}
 
-const openModal = () => (showModal.value = true)
-
-const closeModal = () => (showModal.value = false)
+const closeModal = (): void => {
+  showModal.value = false
+}
 
 let interval: ReturnType<typeof setInterval>
 
-const pollStatus = (res?: GetStatusResponse) => {
-  if (!res) return
-  if (res.status === 'success') clearInterval(interval)
-  if (res.status === 'failure') showError.value = true
+const router = useRouter()
+const route = useRoute()
+
+async function send (e: Event): Promise<void> {
+  const form = new FormData()
+  const target = e.target as HTMLInputElement
+  if (!target.files?.length) return
+  form.append('file', target.files[0])
+  await sendImage(form, router)
+  await starPolling()
 }
 
-const send = async (e: any) => {
-  const response = await sendImage(e.target.value)
-  if (!response) return
-  const resImage: ImageGenerationResponse = await response.json()
+async function pollStatus (taskId: string): Promise<void> {
+  await getStatus(taskId, router).then(async (res) => {
+    if (typeof res === 'undefined') throw new Error('Error')
+    if (res.status === 'failure') throw new Error('Error')
+    if (res.status === 'success') {
+      clearInterval(interval)
+      await router.push({
+        path: '/video_ready',
+        query: { fileId: res.file_path }
+      })
+    }
+  }).catch(() => {
+    showProgress.value = false
+    clearInterval(interval)
+  })
+}
+
+async function starPolling (): Promise<void> {
+  const taskId = route.query.taskId
+  if (!taskId) return
+  showProgress.value = true
+  await pollStatus(taskId.toString())
   interval = setInterval(async () => {
-    const res = await getStatus(resImage.task_id)
-    pollStatus(res)
+    await pollStatus(taskId.toString())
   }, 3000)
 }
+onMounted(async () => {
+  await starPolling()
+})
+
 </script>
 
 <template>

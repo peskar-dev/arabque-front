@@ -1,3 +1,3 @@
-import { app } from '~/app/index.ts';
+import { app } from '~/app/index.ts'
 
-app.mount('#app');
+app.mount('#app')

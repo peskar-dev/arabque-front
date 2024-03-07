@@ -23,7 +23,7 @@ import Footer from '~/components/Footer.vue'
             </div>
           </div>
           <div class="hero__video">
-            <video playsinline autoplay muted loop src="/videos/video.mp4"></video>
+            <video playsinline autoplay muted loop src="/static/video.mp4"></video>
           </div>
         </div>
       </section>

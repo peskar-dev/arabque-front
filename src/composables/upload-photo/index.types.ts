@@ -1,8 +1,8 @@
-export type GetStatusResponse = {
+export interface GetStatusResponse {
   status: string
   file_path: string
 }
 
-export type ImageGenerationResponse = {
+export interface ImageGenerationResponse {
   task_id: string
 }

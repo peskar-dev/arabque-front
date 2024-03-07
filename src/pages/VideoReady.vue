@@ -2,8 +2,10 @@
 import { onMounted, ref } from 'vue'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
+import { useRoute } from 'vue-router'
 
-import { getVideo } from '~/composables/upload-photo'
+const file = ref<string>()
+const route = useRoute()
 
 const showModal = ref(false)
 
@@ -13,8 +15,8 @@ const closeModal = () => (showModal.value = false)
 
 const file = ref(null)
 
-onMounted(async () => {
-  file.value = await getVideo()
+onMounted(() => {
+  if (route.query.fileId) { file.value = `/videos/${route.query.fileId.toString()}` }
 })
 
 </script>
@@ -34,7 +36,7 @@ onMounted(async () => {
               Noire Arabique! Ведь с ней ресницы чернее арабской ночи..
             </p>
             <button class="button button-viewing" @click="openModal">Посмотреть Видео</button>
-            <a class="button button-viewing" :href="`https://arabiquenoire.com/ready/${file}`">Скачать видео</a>
+            <a class="button button-viewing" download :href="file">Скачать видео</a>
             <a class="button__contest" href="/competition" @click="closeModal">Участвовать в конкурсе</a>
             <h3 class="ready__title-phone">Как сохранить видео на iPhone</h3>
             <div class="instruction">
@@ -61,7 +63,7 @@ onMounted(async () => {
           </svg>
         </div>
       </div>
-      <a class="button button-download" :href="`https://arabiquenoire.com/ready/${file}`">Скачать Видео</a>
+      <a class="button button-download" download :href="file">Скачать Видео</a>
       <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
     </div>
   </div>

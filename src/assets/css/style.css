@@ -1411,3 +1411,6 @@ input[type='file'] {
   text-align: center;
   color: #fff;
 }
+.wrapper {
+  min-height: 100vh;
+}
