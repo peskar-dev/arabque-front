@@ -28,11 +28,11 @@ async function send (e: Event): Promise<void> {
   if (!target.files?.length) return
   form.append('file', target.files[0])
   await sendImage(form, router)
-  starPolling()
+  await starPolling()
 }
 
-function pollStatus (taskId: string): void {
-  getStatus(taskId, router).then(async (res) => {
+async function pollStatus (taskId: string): Promise<void> {
+  await getStatus(taskId, router).then(async (res) => {
     if (typeof res === 'undefined') throw new Error('Error')
     if (res.status === 'failure') throw new Error('Error')
     if (res.status === 'success') {
@@ -48,16 +48,17 @@ function pollStatus (taskId: string): void {
   })
 }
 
-function starPolling (): void {
+async function starPolling (): Promise<void> {
   const taskId = route.query.taskId
   if (!taskId) return
   showProgress.value = true
-  interval = setInterval(() => {
-    pollStatus(taskId.toString())
+  await pollStatus(taskId.toString())
+  interval = setInterval(async () => {
+    await pollStatus(taskId.toString())
   }, 3000)
 }
 onMounted(async () => {
-  starPolling()
+  await starPolling()
 })
 
 </script>

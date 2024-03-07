@@ -55,7 +55,7 @@ onMounted(() => {
           </svg>
         </div>
       </div>
-      <a class="button button-download" :href="file">Скачать Видео</a>
+      <a class="button button-download" download :href="file">Скачать Видео</a>
       <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
     </div>
   </div>
