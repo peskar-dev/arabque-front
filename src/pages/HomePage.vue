@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 </script>
@@ -18,7 +17,7 @@ import Footer from '~/components/Footer.vue'
               Погрузись в волшебный мир арабской сказки. Укради сердце главного героя с помощью новой туши Cabaret Noir Arabique
               oт Vivienne Sabó!
             </p>
-            <a class="button" href="{% url 'uploading-photos' %}"> Создать Видео </a>
+            <a class="button" href="/uploading_photo"> Создать Видео </a>
             <div class="page">
               <img src="/img/page.svg" alt="Стрелка вниз" />
             </div>
@@ -62,7 +61,7 @@ import Footer from '~/components/Footer.vue'
                 им в социальных сетях и принять участие в нашем конкурсе!
               </li>
             </ul>
-            <a class="button" href="{% url 'uploading-photos' %}"> Создать Видео </a>
+            <a class="button" href="/uploading_photo"> Создать Видео </a>
           </div>
         </div>
       </section>

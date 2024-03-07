@@ -18,7 +18,7 @@ import { RouterLink } from 'vue-router'
               <RouterLink to="/uploading_photo" class="header__nav-link"> Создать видео </RouterLink>
             </li>
             <li class="header__nav-item">
-              <a class="header__nav-link" href="#instr"> Инструкция по созданию </a>
+              <a class="header__nav-link" href="/#instr"> Инструкция по созданию </a>
             </li>
             <li class="header__nav-item">
               <RouterLink to="/competition" class="header__nav-link"> Условия конкурса </RouterLink>
@@ -30,7 +30,7 @@ import { RouterLink } from 'vue-router'
             </li>
           </ul>
         </nav>
-        <a class="burger-icon" href="#" onclick="event.preventDefault()">
+        <a class="burger-icon" href="#" onclick="preventDefault()">
           <span></span>
         </a>
       </div>

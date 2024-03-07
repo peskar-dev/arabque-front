@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 
@@ -30,7 +29,7 @@ onMounted(async () => {
             </p>
             <button class="button button-viewing">Посмотреть Видео</button>
             <button class="button button-viewing" onclick="location.href='/download_photo/{{ dirkey }}/'">Скачать видео</button>
-            <a class="button__contest" href="{% url 'competition' %}">Участвовать в конкурсе</a>
+            <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
             <h3 class="ready__title-phone">Как сохранить видео на iPhone</h3>
             <div class="instruction">
               <img src="/img/inst-1.png" alt="" />
@@ -57,7 +56,7 @@ onMounted(async () => {
         </div>
       </div>
       <a class="button button-download" :href="`https://arabiquenoire.com/ready/${file}`">Скачать Видео</a>
-      <a class="button__contest" href="{% url 'competition' %}">Участвовать в конкурсе</a>
+      <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
     </div>
   </div>
 </template>

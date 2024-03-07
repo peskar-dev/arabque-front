@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 </script>
 
 <template>
@@ -11,7 +10,7 @@ import { RouterLink } from 'vue-router'
             <a class="footer__link" href="https://www.instagram.com/viviennesabo?igsh=MWN0d3RlZzBqcGpiZQ=="> Социальные сети </a>
           </li>
           <li class="footer__item">
-            <a class="footer__link" href="#"> Политика конфиденциальности </a>
+            <a class="footer__link" href="/contest"> Политика конфиденциальности </a>
           </li>
         </ul>
       </div>
