@@ -1,20 +1,28 @@
-import {ref} from 'vue'
-import type {GetStatusResponse} from './index.types'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
+import type { GetStatusResponse } from './index.types'
+
 
 export const showProgress = ref(false)
 
 export const filePath = ref('')
 
 export const sendImage = async (data: FormData) => {
+  const router = useRouter()
   try {
     showProgress.value = true
-    return await fetch(`${import.meta.env.VITE_API_URL}/images/`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/images/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
+
+    const resData = await res.json()
+    const taskId = resData.task_id
+    router.push(`/uploading_photo/${taskId}`)
   } catch (error) {
     console.error('Error:', error)
   } finally {
