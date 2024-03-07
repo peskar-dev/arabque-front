@@ -1405,3 +1405,9 @@ input[type='file'] {
   color: #b8a46f;
   margin-top: 15px;
 }
+
+.competition__link {
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+}

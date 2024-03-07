@@ -5,6 +5,12 @@ import Footer from '~/components/Footer.vue'
 
 import { getVideo } from '~/composables/upload-photo'
 
+const showModal = ref(false)
+
+const openModal = () => (showModal.value = true)
+
+const closeModal = () => (showModal.value = false)
+
 const file = ref(null)
 
 onMounted(async () => {
@@ -27,9 +33,9 @@ onMounted(async () => {
               Скорее поделись им в социальных сетях и принимай участие в нашем конкурсе, чтобы выиграть годовой запас туши Cabaret
               Noire Arabique! Ведь с ней ресницы чернее арабской ночи..
             </p>
-            <button class="button button-viewing">Посмотреть Видео</button>
-            <button class="button button-viewing" onclick="location.href='/download_photo/{{ dirkey }}/'">Скачать видео</button>
-            <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
+            <button class="button button-viewing" @click="openModal">Посмотреть Видео</button>
+            <a class="button button-viewing" :href="`https://arabiquenoire.com/ready/${file}`">Скачать видео</a>
+            <a class="button__contest" href="/competition" @click="closeModal">Участвовать в конкурсе</a>
             <h3 class="ready__title-phone">Как сохранить видео на iPhone</h3>
             <div class="instruction">
               <img src="/img/inst-1.png" alt="" />
@@ -43,13 +49,13 @@ onMounted(async () => {
     </main>
     <Footer />
   </div>
-  <div class="modal">
+  <div v-if="showModal" class="modal" @click.self="closeModal">
     <div class="modal__window-viewing">
       <div class="modal__viewing-img">
         <video v-if="file" controls class="modal__video">
           <source :src="file" type="video/mp4" />
         </video>
-        <div class="modal__cancel">
+        <div class="modal__cancel" @click="closeModal">
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 1L10 10M1 10L10 1" stroke="black" />
           </svg>
