@@ -38,7 +38,7 @@ function pollStatus (taskId: string): void {
     if (res.status === 'success') {
       clearInterval(interval)
       await router.push({
-        path: '/download_video',
+        path: '/video_ready',
         query: { fileId: res.file_path }
       })
     }

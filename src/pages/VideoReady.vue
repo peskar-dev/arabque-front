@@ -8,7 +8,7 @@ const file = ref<string>()
 const route = useRoute()
 
 onMounted(() => {
-  if (route.query.fileId) { file.value = route.query.fileId.toString() }
+  if (route.query.fileId) { file.value = `/videos/${route.query.fileId.toString()}` }
 })
 
 </script>
@@ -55,7 +55,7 @@ onMounted(() => {
           </svg>
         </div>
       </div>
-      <a class="button button-download" :href="`https://arabiquenoire.com/ready/${file}`">Скачать Видео</a>
+      <a class="button button-download" :href="file">Скачать Видео</a>
       <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
     </div>
   </div>
