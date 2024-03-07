@@ -22,7 +22,7 @@ export const sendImage = async (data: FormData) => {
 
     const resData = await res.json()
     const taskId = resData.task_id
-    router.push(`/uploading_photo/${taskId}`)
+    await router.push({ path: '/uploading_photo', query: { taskId: taskId } })
   } catch (error) {
     console.error('Error:', error)
   } finally {
