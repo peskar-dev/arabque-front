@@ -1,28 +1,22 @@
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { useRouter } from 'vue-router'
-import type { GetStatusResponse } from './index.types'
-
+import { type Router } from 'vue-router'
+import { type GetStatusResponse, type ImageGenerationResponse } from './index.types'
 
 export const showProgress = ref(false)
 
-export const filePath = ref('')
+export const filePath = ref<string>()
 
-export const sendImage = async (data: FormData) => {
-  const router = useRouter()
+export const sendImage = async (data: FormData, router: Router): Promise<void> => {
   try {
     showProgress.value = true
     const res = await fetch(`${import.meta.env.VITE_API_URL}/images/`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
+      body: data
     })
 
-    const resData = await res.json()
+    const resData = await res.json() as ImageGenerationResponse
     const taskId = resData.task_id
-    await router.push({ path: '/uploading_photo', query: { taskId: taskId } })
+    await router.push({ path: '/uploading_photo', query: { taskId } })
   } catch (error) {
     console.error('Error:', error)
   } finally {
@@ -30,22 +24,24 @@ export const sendImage = async (data: FormData) => {
   }
 }
 
-export const getStatus = async (taskId: string) => {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${taskId}/`, {
+export const getStatus = async (taskId: string, router: Router): Promise<GetStatusResponse | undefined> => {
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${taskId}/`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-    },
+      'Content-Type': 'application/json'
+    }
   })
-
-  const data: GetStatusResponse = await res.json()
-  filePath.value = data.file_path
-  return data
+  if (!response.ok) await router.push({ path: '/uploading_photo', query: {} })
+  else {
+    const data = await response.json() as GetStatusResponse
+    filePath.value = data.file_path
+    return data
+  }
 }
 
-export const getVideo = async () => {
-  if (!filePath.value) return
+export const getVideo = async (): Promise<Response | undefined> => {
+  if (filePath.value === undefined) return
   return await fetch(`${import.meta.env.VITE_API_URL}/outputs/${filePath.value}/`, {
-    method: 'GET',
+    method: 'GET'
   })
 }

@@ -2,13 +2,13 @@
 import { onMounted, ref } from 'vue'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
+import { useRoute } from 'vue-router'
 
-import { getVideo } from '~/composables/upload-photo'
+const file = ref<string>()
+const route = useRoute()
 
-const file = ref(null)
-
-onMounted(async () => {
-  file.value = await getVideo()
+onMounted(() => {
+  if (route.query.fileId) { file.value = route.query.fileId.toString() }
 })
 
 </script>
@@ -28,7 +28,7 @@ onMounted(async () => {
               Noire Arabique! Ведь с ней ресницы чернее арабской ночи..
             </p>
             <button class="button button-viewing">Посмотреть Видео</button>
-            <button class="button button-viewing" onclick="location.href='/download_photo/{{ dirkey }}/'">Скачать видео</button>
+            <a class="button button-viewing" :href="file">Скачать видео</a>
             <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
             <h3 class="ready__title-phone">Как сохранить видео на iPhone</h3>
             <div class="instruction">

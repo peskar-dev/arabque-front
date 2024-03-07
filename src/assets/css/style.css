@@ -1405,3 +1405,7 @@ input[type='file'] {
   color: #b8a46f;
   margin-top: 15px;
 }
+
+.wrapper {
+  min-height: 100vh;
+}
