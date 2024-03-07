@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 </script>
@@ -22,9 +23,6 @@ import Footer from '~/components/Footer.vue'
                 получить годовой запас туши Cabaret Noir Arabique, чтобы покорять одним лишь взглядом!
               </p>
             </div>
-          </div>
-          <div class="">
-            <div class="text">Условия конкурса читайте подробнее <RouterLink to="/contest">тут</RouterLink></div>
           </div>
         </div>
       </section>

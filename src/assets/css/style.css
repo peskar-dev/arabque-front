@@ -1406,6 +1406,11 @@ input[type='file'] {
   margin-top: 15px;
 }
 
+.competition__link {
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+}
 .wrapper {
   min-height: 100vh;
 }
