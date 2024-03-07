@@ -28,7 +28,7 @@ onMounted(() => {
               Noire Arabique! Ведь с ней ресницы чернее арабской ночи..
             </p>
             <button class="button button-viewing">Посмотреть Видео</button>
-            <a class="button button-viewing" :href="file">Скачать видео</a>
+            <a class="button button-viewing" download :href="file">Скачать видео</a>
             <a class="button__contest" href="/competition">Участвовать в конкурсе</a>
             <h3 class="ready__title-phone">Как сохранить видео на iPhone</h3>
             <div class="instruction">
