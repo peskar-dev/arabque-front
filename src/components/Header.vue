@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { RouterLink } from 'vue-router'
+
+const showMenu = ref(false)
+
+const toggleMenu = () => (showMenu.value = !showMenu.value)
 </script>
 
 <template>
@@ -10,7 +15,7 @@ import { RouterLink } from 'vue-router'
           <img src="/img/logo.png" alt="Лого" />
         </a>
         <nav class="header__nav">
-          <ul class="header__nav-list">
+          <ul :class="{ 'header__nav-list': true, 'header__nav-list--active': showMenu }">
             <li class="header__nav-item">
               <RouterLink to="/" class="header__nav-link"> Главная </RouterLink>
             </li>
@@ -21,7 +26,7 @@ import { RouterLink } from 'vue-router'
               <a class="header__nav-link" href="/#instr"> Инструкция по созданию </a>
             </li>
             <li class="header__nav-item">
-              <RouterLink to="/competition" class="header__nav-link"> Условия конкурса </RouterLink>
+              <RouterLink to="/competition" class="header__nav-link"> О конкурсе </RouterLink>
             </li>
             <li class="header__nav-item">
               <a class="header__nav-link" href="https://www.instagram.com/viviennesabo?igsh=MWN0d3RlZzBqcGpiZQ==">
@@ -30,7 +35,7 @@ import { RouterLink } from 'vue-router'
             </li>
           </ul>
         </nav>
-        <a class="burger-icon" href="#" onclick="preventDefault()">
+        <a :class="{ 'burger-icon': true, 'burger-icon--active': showMenu }" href="#" @click.prevent="toggleMenu">
           <span></span>
         </a>
       </div>

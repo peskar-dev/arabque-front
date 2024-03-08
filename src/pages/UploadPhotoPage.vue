@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
-import { sendImage, showProgress, getStatus } from '~/composables/upload-photo'
+import { sendImage, showProgress, getStatus, queue } from '~/composables/upload-photo'
 import { useRoute, useRouter } from 'vue-router'
 
 const showModal = ref(false)
@@ -132,6 +132,7 @@ onMounted(async () => {
   <div v-if="showProgress" class="progress-modal">
     <div class="progress-modal-inner">
       <h1 class="progress-modal-title">Ваше видео в процессе создания</h1>
+      <div class="progress-queue">{{ queue }}</div>
       <span class="loader"></span>
     </div>
   </div>

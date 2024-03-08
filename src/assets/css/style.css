@@ -504,18 +504,18 @@ html {
   transition: all 0.3s;
 }
 
-.body--opened-menu .burger-icon span {
+.burger-icon--active span {
   background: transparent;
 }
 
-.body--opened-menu .burger-icon span::before {
+.burger-icon--active span::before {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
   top: 0;
 }
 
-.body--opened-menu .burger-icon span::after {
+.burger-icon--active span::after {
   -webkit-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
@@ -1099,7 +1099,7 @@ input[type='file'] {
   .header__nav-item:hover {
     color: var(--bg-text);
   }
-  .body--opened-menu .header__nav-list {
+  .header__nav-list--active {
     opacity: 1;
     visibility: visible;
     -webkit-backdrop-filter: blur(18.2999992371px);
@@ -1413,4 +1413,29 @@ input[type='file'] {
 }
 .wrapper {
   min-height: 100vh;
+}
+
+.contest__inner {
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.contest__title {
+  margin-top: 120px;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.contest__text {
+  color: #fff;
+  margin-bottom: 15px;
+  padding: 0 15px;
+}
+
+.contest__text-div {
+  color: #fff;
+  margin-bottom: 15px;
+  padding-left: 20px;
 }

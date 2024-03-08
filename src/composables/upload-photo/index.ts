@@ -6,6 +6,8 @@ export const showProgress = ref(false)
 
 export const filePath = ref<string>()
 
+export const queue = ref<string>()
+
 export const sendImage = async (data: FormData, router: Router): Promise<void> => {
   try {
     showProgress.value = true
@@ -35,6 +37,7 @@ export const getStatus = async (taskId: string, router: Router): Promise<GetStat
   else {
     const data = await response.json() as GetStatusResponse
     filePath.value = data.file_path
+    queue.value = <data className="queue"></data>
     return data
   }
 }
