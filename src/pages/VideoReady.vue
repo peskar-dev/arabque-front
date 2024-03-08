@@ -13,8 +13,6 @@ const openModal = () => (showModal.value = true)
 
 const closeModal = () => (showModal.value = false)
 
-const file = ref(null)
-
 onMounted(() => {
   if (route.query.fileId) { file.value = `/videos/${route.query.fileId.toString()}` }
 })
