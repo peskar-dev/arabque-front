@@ -38,6 +38,8 @@ export const getStatus = async (taskId: string, router: Router): Promise<GetStat
     const data = (await response.json()) as GetStatusResponse
     filePath.value = data.file_path
     queue.value = data.queue
+    console.log('data - ', data)
+    console.log('queue - ', queue.value)
     return data
   }
 }
