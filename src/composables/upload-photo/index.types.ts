@@ -1,7 +1,7 @@
 export interface GetStatusResponse {
   status: string
   file_path: string
-  queue: string
+  queue: number
 }
 
 export interface ImageGenerationResponse {

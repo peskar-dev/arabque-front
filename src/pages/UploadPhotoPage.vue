@@ -132,7 +132,7 @@ onMounted(async () => {
   <div v-if="showProgress" class="progress-modal">
     <div class="progress-modal-inner">
       <h1 class="progress-modal-title">Ваше видео в процессе создания</h1>
-      <div class="progress-queue">{{ queue }}</div>
+      <div class="progress-queue">{{ queue?.toString() }}</div>
       <span class="loader"></span>
     </div>
   </div>

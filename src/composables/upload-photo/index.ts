@@ -6,7 +6,7 @@ export const showProgress = ref(false)
 
 export const filePath = ref<string>()
 
-export const queue = ref<string>()
+export const queue = ref<number>()
 
 export const sendImage = async (data: FormData, router: Router): Promise<void> => {
   try {
