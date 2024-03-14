@@ -14,7 +14,7 @@ import Footer from '~/components/Footer.vue'
             <div class="competition__text">
               <p>
                 1. Создай видео с нашим восточным принцем и собой в главной роли и поделись им с друзьями на страничке VK.
-                Обязательно поставь хэштег #CabaretNoir Arabique
+                Обязательно поставь хэштег #CabaretNoirArabique
               </p>
               <p>2. Убедись, что ты подписана на аккаунт Vivienne Sabo в VK</p>
               <p>
