@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 import { sendImage, showProgress, getStatus, queue } from '~/composables/upload-photo'
@@ -37,14 +37,14 @@ async function pollStatus (taskId: string): Promise<void> {
     if (res.status === 'failure') throw new Error('Error')
     if (res.status === 'success') {
       clearInterval(interval)
+      showProgress.value = false
       await router.push({
         path: '/video_ready',
         query: { fileId: res.file_path }
       })
     }
   }).catch(() => {
-    showProgress.value = false
-    clearInterval(interval)
+    throw new Error('Error')
   })
 }
 
@@ -53,12 +53,27 @@ async function starPolling (): Promise<void> {
   if (!taskId) return
   showProgress.value = true
   await pollStatus(taskId.toString())
+  let retires = 0
   interval = setInterval(async () => {
-    await pollStatus(taskId.toString())
+    try {
+      await pollStatus(taskId.toString())
+    } catch (e) {
+      retires += 1
+      if (retires > 5) {
+        clearInterval(interval)
+        showProgress.value = false
+        await router.push({ path: '/uploading_photo', query: {} })
+      }
+    }
   }, 3000)
 }
 onMounted(async () => {
   await starPolling()
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
+  showProgress.value = false
 })
 
 </script>
@@ -131,8 +146,9 @@ onMounted(async () => {
   </div>
   <div v-if="showProgress" class="progress-modal">
     <div class="progress-modal-inner">
-      <h1 class="progress-modal-title">Ваше видео в процессе создания</h1>
-      <div class="progress-queue">{{ queue }}</div>
+      <h1 v-if="typeof queue === 'undefined'" class="progress-modal-title">Обработка запроса...</h1>
+      <h1 v-else-if="queue && queue > 0" class="progress-modal-title">Ваше место в очереди: {{ queue }}</h1>
+      <h1 v-else class="progress-modal-title">Ваше видео в процессе создания</h1>
       <span class="loader"></span>
     </div>
   </div>
