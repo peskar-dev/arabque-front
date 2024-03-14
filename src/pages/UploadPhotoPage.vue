@@ -42,6 +42,8 @@ async function pollStatus (taskId: string): Promise<void> {
         query: { fileId: res.file_path }
       })
     }
+  }).catch(() => {
+    throw new Error('Error')
   })
 }
 
@@ -52,13 +54,15 @@ async function starPolling (): Promise<void> {
   await pollStatus(taskId.toString())
   let retires = 0
   interval = setInterval(async () => {
-    retires += 1
-    if (retires > 5) {
-      clearInterval(interval)
-      showProgress.value = false
-      return
+    try {
+      await pollStatus(taskId.toString())
+    } catch (e) {
+      retires += 1
+      if (retires > 5) {
+        clearInterval(interval)
+        showProgress.value = false
+      }
     }
-    await pollStatus(taskId.toString())
   }, 3000)
 }
 onMounted(async () => {
