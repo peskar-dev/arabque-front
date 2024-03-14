@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import Header from '~/components/Header.vue'
 import Footer from '~/components/Footer.vue'
 import { sendImage, showProgress, getStatus, queue } from '~/composables/upload-photo'
@@ -37,6 +37,7 @@ async function pollStatus (taskId: string): Promise<void> {
     if (res.status === 'failure') throw new Error('Error')
     if (res.status === 'success') {
       clearInterval(interval)
+      showProgress.value = false
       await router.push({
         path: '/video_ready',
         query: { fileId: res.file_path }
@@ -61,12 +62,18 @@ async function starPolling (): Promise<void> {
       if (retires > 5) {
         clearInterval(interval)
         showProgress.value = false
+        await router.push({ path: '/uploading_photo', query: {} })
       }
     }
   }, 3000)
 }
 onMounted(async () => {
   await starPolling()
+})
+
+onUnmounted(() => {
+  clearInterval(interval)
+  showProgress.value = false
 })
 
 </script>
