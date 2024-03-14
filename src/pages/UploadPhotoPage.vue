@@ -58,7 +58,7 @@ async function starPolling (): Promise<void> {
       showProgress.value = false
       return
     }
-    await pollStatus(taskId.toString(), retires)
+    await pollStatus(taskId.toString())
   }, 3000)
 }
 onMounted(async () => {
