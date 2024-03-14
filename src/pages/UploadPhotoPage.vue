@@ -146,7 +146,8 @@ onUnmounted(() => {
   </div>
   <div v-if="showProgress" class="progress-modal">
     <div class="progress-modal-inner">
-      <h1 v-if="queue && queue > 0" class="progress-modal-title">Ваше место в очереди: {{ queue }}</h1>
+      <h1 v-if="typeof queue === 'undefined'" class="progress-modal-title">Обработка запроса...</h1>
+      <h1 v-else-if="queue && queue > 0" class="progress-modal-title">Ваше место в очереди: {{ queue }}</h1>
       <h1 v-else class="progress-modal-title">Ваше видео в процессе создания</h1>
       <span class="loader"></span>
     </div>
